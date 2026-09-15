@@ -1,0 +1,59 @@
+@startuml
+left to right direction
+
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 14
+skinparam nodesep 35
+skinparam ranksep 60
+skinparam ArrowColor #475569
+
+skinparam usecase {
+  BackgroundColor #F8FAFC
+  BorderColor #475569
+}
+skinparam rectangle {
+  BackgroundColor white
+  BorderColor #94A3B8
+}
+
+actor "Администратор" as Admin
+actor "Подрядчик" as Contractor
+actor "Технический\nэксперт" as Expert
+
+Admin -[hidden]right-> Contractor
+Contractor -[hidden]right-> Expert
+
+rectangle "РемКомСтрой — выполнение и изменение плана" {
+  usecase "Просмотреть\nсостояние ремонта" as Status
+  usecase "UC13. Перестроить\nплан и сроки" as UC13
+
+  usecase "UC9. Начать\nэтап работ" as UC9
+  usecase "UC10. Зафиксировать\nвыполнение" as UC10
+  usecase "UC11. Сообщить\nо скрытом дефекте" as UC11
+
+  usecase "UC12. Проверить\nдополнительную работу" as UC12
+
+  Status -[hidden]right-> UC13
+  UC13 -[hidden]right-> UC9
+  UC9 -[hidden]right-> UC10
+  UC10 -[hidden]right-> UC11
+}
+
+Admin --> Status
+Admin --> UC13
+
+Contractor --> UC9
+Contractor --> UC10
+Contractor --> UC11
+
+Expert --> UC12
+
+UC11 .right.> UC10 : <<extend>>
+UC11 ..> UC12 : <<include>>
+UC13 ..> UC12 : <<extend>>\n[работа одобрена]
+
+caption При перестроении плана новый тендер (UC4) проводится только при необходимости.
+
+@enduml

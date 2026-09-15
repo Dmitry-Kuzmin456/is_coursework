@@ -1,0 +1,53 @@
+@startuml
+left to right direction
+
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 14
+skinparam nodesep 35
+skinparam ranksep 60
+skinparam ArrowColor #475569
+
+skinparam usecase {
+  BackgroundColor #F8FAFC
+  BorderColor #475569
+}
+skinparam rectangle {
+  BackgroundColor white
+  BorderColor #94A3B8
+}
+
+actor "Администратор" as Admin
+actor "Подрядчик" as Contractor
+actor "Технический\nэксперт" as Expert
+
+Admin -[hidden]right-> Contractor
+Contractor -[hidden]right-> Expert
+
+rectangle "РемКомСтрой — приёмка и завершение ремонта" {
+  usecase "UC17. Завершить\nпроект ремонта" as UC17
+
+  usecase "UC14. Передать\nэтап на приёмку" as UC14
+  usecase "Устранить замечания" as Fix
+
+  usecase "UC16. Вернуть этап\nна доработку" as UC16
+  usecase "UC15. Принять\nэтап ремонта" as UC15
+
+  UC17 -[hidden]right-> UC14
+  UC14 -[hidden]right-> Fix
+  Fix -[hidden]right-> UC16
+}
+
+Admin --> UC17
+
+Contractor --> UC14
+Contractor --> Fix
+
+Expert --> UC16
+Expert --> UC15
+
+UC17 ..> UC15 : <<include>>
+UC16 ..> UC15 : <<extend>>\n[выявлены замечания]
+
+@enduml

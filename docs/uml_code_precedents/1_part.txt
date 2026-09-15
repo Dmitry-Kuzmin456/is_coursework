@@ -1,0 +1,61 @@
+@startuml
+left to right direction
+
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 14
+skinparam nodesep 35
+skinparam ranksep 60
+skinparam ArrowColor #475569
+
+skinparam usecase {
+  BackgroundColor #F8FAFC
+  BorderColor #475569
+}
+skinparam rectangle {
+  BackgroundColor white
+  BorderColor #94A3B8
+}
+
+actor "Администратор" as Admin
+actor "Подрядчик" as Contractor
+
+' Скрытые связи управляют расположением элементов
+Admin -[hidden]right-> Contractor
+
+rectangle "РемКомСтрой — планирование и тендеры" {
+  usecase "UC1. Создать заявку\nна ремонт" as UC1
+  usecase "UC2. Определить\nсостав работ" as UC2
+  usecase "UC3. Сформировать\nплан ремонта" as UC3
+
+  usecase "UC7. Выбрать\nподрядчиков" as UC7
+  usecase "UC8. Сформировать\nграфик этапов" as UC8
+
+  usecase "UC4. Создать тендеры" as UC4
+  usecase "UC6. Ранжировать\nпредложения" as UC6
+  usecase "UC18. Просмотреть\nисторию и рейтинг" as UC18
+
+  usecase "UC5. Ответить\nна тендер" as UC5
+
+  UC1 -[hidden]right-> UC7
+  UC7 -[hidden]right-> UC4
+  UC4 -[hidden]right-> UC5
+}
+
+Admin --> UC1
+Admin --> UC7
+Admin --> UC4
+
+Contractor --> UC5
+Contractor --> UC18
+
+UC1 ..> UC2 : <<include>>
+UC2 ..> UC3 : <<include>>
+
+UC7 ..> UC8 : <<include>>
+
+UC4 ..> UC6 : <<include>>
+UC6 ..> UC18 : <<include>>
+
+@enduml
