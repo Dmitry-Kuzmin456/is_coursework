@@ -1,0 +1,45 @@
+@startuml
+left to right direction
+
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 13
+skinparam ArrowColor #475569
+skinparam node {
+  BackgroundColor #F8FAFC
+  BorderColor #475569
+}
+skinparam database {
+  BackgroundColor #F8FAFC
+  BorderColor #475569
+}
+skinparam component {
+  BackgroundColor #F8FAFC
+  BorderColor #475569
+}
+
+actor "Браузер\nдемонстратора" as Browser
+
+node "Рабочая станция" {
+  [SSH-туннель\n3000 и 8080] as Tunnel
+}
+
+node "helios.cs.ifmo.ru" {
+  node "Node.js" {
+    [React SPA\nпорт 3000] as React
+  }
+  node "WildFly" {
+    [Jakarta EE API\nпорт 8080] as API
+  }
+}
+
+database "PostgreSQL\npsql -h pg -d studs" as PG
+
+Browser --> Tunnel : localhost:3000
+Tunnel --> React : HTTP
+Browser --> Tunnel : localhost:8080
+Tunnel --> API : REST JSON
+API --> PG : JDBC
+
+@enduml

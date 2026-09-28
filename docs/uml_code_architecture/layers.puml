@@ -1,0 +1,42 @@
+@startuml
+left to right direction
+
+skinparam shadowing false
+skinparam backgroundColor white
+skinparam defaultFontName Arial
+skinparam defaultFontSize 13
+skinparam ArrowColor #475569
+skinparam component {
+  BackgroundColor #F8FAFC
+  BorderColor #475569
+}
+skinparam database {
+  BackgroundColor #F8FAFC
+  BorderColor #475569
+}
+skinparam package {
+  BackgroundColor white
+  BorderColor #94A3B8
+}
+
+actor "Пользователь" as User
+
+package "Node.js на helios" {
+  [React SPA] as React
+}
+
+package "WildFly на helios" {
+  [JAX-RS контроллеры] as Rest
+  [CDI-сервисы] as Services
+  [JPA / JDBC и PL/pgSQL] as Persist
+}
+
+database "PostgreSQL\nхост pg, БД studs" as DB
+
+User --> React : HTTP :3000
+React --> Rest : REST JSON :8080
+Rest --> Services
+Services --> Persist
+Persist --> DB : JDBC
+
+@enduml
