@@ -18,31 +18,28 @@ skinparam rectangle {
   BorderColor #94A3B8
 }
 
-actor "Администратор" as Admin
 actor "Подрядчик" as Contractor
 actor "Технический\nэксперт" as Expert
+actor "Администратор" as Admin
 
-Admin -[hidden]down-> Contractor
 Contractor -[hidden]down-> Expert
+Expert -[hidden]down-> Admin
 
-rectangle "РемКомСтрой — ремонт" {
-  usecase "Провести ремонт" as Repair
-  usecase "Определить\nсостав работ" as Scope
-  usecase "Сформировать\nплан ремонта" as Plan
+rectangle "РемКомСтрой — скрытый дефект" {
   usecase "Сообщить о скрытом\nдефекте" as Defect
+  usecase "Проверить\nдополнительную работу" as Check
+  usecase "Провести тендер" as Tender
 
-  Repair -[hidden]right-> Scope
-  Scope -[hidden]right-> Plan
-  Scope -[hidden]down-> Defect
+  Defect -[hidden]right-> Check
+  Check -[hidden]down-> Tender
 }
 
-Admin --> Repair
-Contractor --> Repair
-Expert --> Scope
 Contractor --> Defect
+Expert --> Check
+Admin --> Defect
+Admin --> Tender
 
-Repair ..> Scope : <<include>>
-Repair ..> Plan : <<include>>
-Defect ..> Repair : <<extend>>\n[обнаружен дефект]
+Defect ..> Check : <<include>>
+Tender ..> Defect : <<extend>>\n[нужен другой подрядчик]
 
 @enduml
