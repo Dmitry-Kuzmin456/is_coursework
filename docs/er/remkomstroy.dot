@@ -1,0 +1,242 @@
+digraph remkomstroy {
+  graph [
+    label="ER-модель «РемКомСтрой»"
+    labelloc=t
+    fontname="Arial"
+    fontsize=16
+    splines=ortho
+    rankdir=TB
+    nodesep=0.85
+    ranksep=1.05
+    pad=0.45
+    bgcolor=white
+    outputorder=nodesfirst
+  ]
+
+  node [shape=plain fontname="Arial" fontsize=13]
+  edge [fontname="Arial" color="#334155" penwidth=1.25 dir=none]
+
+  account [pos="93.6,1251.5!" label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#334155" BGCOLOR="#F8FAFC">
+      <TR><TD PORT="topl" WIDTH="16" HEIGHT="6"></TD><TD PORT="top" HEIGHT="6"></TD><TD PORT="topr" WIDTH="16" HEIGHT="6"></TD></TR>
+      <TR><TD PORT="left"></TD><TD BGCOLOR="#E2E8F0"><B>Учётная запись</B></TD><TD PORT="right"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">идентификатор PK</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">ФИО</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">email</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">роль</TD><TD></TD></TR>
+      <TR><TD PORT="botl" HEIGHT="6"></TD><TD PORT="bot" HEIGHT="6"></TD><TD PORT="botr" HEIGHT="6"></TD></TR>
+    </TABLE>>]
+
+  contractor [pos="93.6,1027.8!" label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#334155" BGCOLOR="#F8FAFC">
+      <TR><TD PORT="topl" WIDTH="16" HEIGHT="6"></TD><TD PORT="top" HEIGHT="6"></TD><TD PORT="topr" WIDTH="16" HEIGHT="6"></TD></TR>
+      <TR><TD PORT="left"></TD><TD BGCOLOR="#E2E8F0"><B>Подрядчик</B></TD><TD PORT="right"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">идентификатор PK</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">название компании</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">статус</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD PORT="w2"></TD><TD ALIGN="LEFT">учётная запись FK</TD><TD PORT="e2"></TD></TR>
+      <TR><TD PORT="botl" HEIGHT="6"></TD><TD PORT="bot" HEIGHT="6"></TD><TD PORT="botr" HEIGHT="6"></TD></TR>
+    </TABLE>>]
+
+  spec [pos="352.8,1027.8!" label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#334155" BGCOLOR="#F8FAFC">
+      <TR><TD PORT="topl" WIDTH="16" HEIGHT="6"></TD><TD PORT="top" HEIGHT="6"></TD><TD PORT="topr" WIDTH="16" HEIGHT="6"></TD></TR>
+      <TR><TD PORT="left"></TD><TD BGCOLOR="#E2E8F0"><B>Специализация</B></TD><TD PORT="right"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">идентификатор PK</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">название</TD><TD></TD></TR>
+      <TR><TD PORT="botl" HEIGHT="6"></TD><TD PORT="bot" HEIGHT="6"></TD><TD PORT="botr" HEIGHT="6"></TD></TR>
+    </TABLE>>]
+
+  facility [pos="619.2,1251.5!" label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#334155" BGCOLOR="#F8FAFC">
+      <TR><TD PORT="topl" WIDTH="16" HEIGHT="6"></TD><TD PORT="top" HEIGHT="6"></TD><TD PORT="topr" WIDTH="16" HEIGHT="6"></TD></TR>
+      <TR><TD PORT="left"></TD><TD BGCOLOR="#E2E8F0"><B>Объект</B></TD><TD PORT="right"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">идентификатор PK</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">название</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">вид</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">адрес</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD PORT="w2"></TD><TD ALIGN="LEFT">ответственный FK</TD><TD PORT="e2"></TD></TR>
+      <TR><TD PORT="botl" HEIGHT="6"></TD><TD PORT="bot" HEIGHT="6"></TD><TD PORT="botr" HEIGHT="6"></TD></TR>
+    </TABLE>>]
+
+  element [pos="619.2,1027.8!" label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#334155" BGCOLOR="#F8FAFC">
+      <TR><TD PORT="topl" WIDTH="16" HEIGHT="6"></TD><TD PORT="top" HEIGHT="6"></TD><TD PORT="topr" WIDTH="16" HEIGHT="6"></TD></TR>
+      <TR><TD PORT="left"></TD><TD BGCOLOR="#E2E8F0"><B>Элемент объекта</B></TD><TD PORT="right"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">идентификатор PK</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">название</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">тип элемента</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">положение</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD PORT="w2"></TD><TD ALIGN="LEFT">объект FK</TD><TD PORT="e2"></TD></TR>
+      <TR><TD PORT="w3"></TD><TD ALIGN="LEFT">родитель FK</TD><TD PORT="e3"></TD></TR>
+      <TR><TD PORT="botl" HEIGHT="6"></TD><TD PORT="bot" HEIGHT="6"></TD><TD PORT="botr" HEIGHT="6"></TD></TR>
+    </TABLE>>]
+
+  work_type [pos="352.8,877.3!" label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#334155" BGCOLOR="#F8FAFC">
+      <TR><TD PORT="topl" WIDTH="16" HEIGHT="6"></TD><TD PORT="top" HEIGHT="6"></TD><TD PORT="topr" WIDTH="16" HEIGHT="6"></TD></TR>
+      <TR><TD PORT="left"></TD><TD BGCOLOR="#E2E8F0"><B>Вид работ</B></TD><TD PORT="right"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">идентификатор PK</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">название</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD PORT="w2"></TD><TD ALIGN="LEFT">специализация FK</TD><TD PORT="e2"></TD></TR>
+      <TR><TD PORT="botl" HEIGHT="6"></TD><TD PORT="bot" HEIGHT="6"></TD><TD PORT="botr" HEIGHT="6"></TD></TR>
+    </TABLE>>]
+
+  project [pos="619.2,762.1!" label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#334155" BGCOLOR="#F8FAFC">
+      <TR><TD PORT="topl" WIDTH="16" HEIGHT="6"></TD><TD PORT="top" HEIGHT="6"></TD><TD PORT="topr" WIDTH="16" HEIGHT="6"></TD></TR>
+      <TR><TD PORT="left"></TD><TD BGCOLOR="#E2E8F0"><B>Проект</B></TD><TD PORT="right"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">идентификатор PK</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">название</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">описание дефекта</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">приоритет</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">статус</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">текущая версия</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD PORT="w2"></TD><TD ALIGN="LEFT">объект FK</TD><TD PORT="e2"></TD></TR>
+      <TR><TD PORT="w3"></TD><TD ALIGN="LEFT">элемент FK</TD><TD PORT="e3"></TD></TR>
+      <TR><TD PORT="w4"></TD><TD ALIGN="LEFT">автор FK</TD><TD PORT="e4"></TD></TR>
+      <TR><TD PORT="botl" HEIGHT="6"></TD><TD PORT="bot" HEIGHT="6"></TD><TD PORT="botr" HEIGHT="6"></TD></TR>
+    </TABLE>>]
+
+  work [pos="619.2,433.4!" label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#334155" BGCOLOR="#F8FAFC">
+      <TR><TD PORT="topl" WIDTH="16" HEIGHT="6"></TD><TD PORT="top" HEIGHT="6"></TD><TD PORT="topr" WIDTH="16" HEIGHT="6"></TD></TR>
+      <TR><TD PORT="left"></TD><TD BGCOLOR="#E2E8F0"><B>Работа</B></TD><TD PORT="right"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">идентификатор PK</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">название</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">номер версии</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">код работы</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">объём</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">статус</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">результат приёмки</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD PORT="w2"></TD><TD ALIGN="LEFT">проект FK</TD><TD PORT="e2"></TD></TR>
+      <TR><TD PORT="w3"></TD><TD ALIGN="LEFT">вид работ FK</TD><TD PORT="e3"></TD></TR>
+      <TR><TD PORT="w4"></TD><TD ALIGN="LEFT">элемент FK</TD><TD PORT="e4"></TD></TR>
+      <TR><TD PORT="w5"></TD><TD ALIGN="LEFT">подрядчик FK</TD><TD PORT="e5"></TD></TR>
+      <TR><TD PORT="w6"></TD><TD ALIGN="LEFT">тендер FK</TD><TD PORT="e6"></TD></TR>
+      <TR><TD PORT="botl" HEIGHT="6"></TD><TD PORT="bot" HEIGHT="6"></TD><TD PORT="botr" HEIGHT="6"></TD></TR>
+    </TABLE>>]
+
+  tender [pos="352.8,433.4!" label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#334155" BGCOLOR="#F8FAFC">
+      <TR><TD PORT="topl" WIDTH="16" HEIGHT="6"></TD><TD PORT="top" HEIGHT="6"></TD><TD PORT="topr" WIDTH="16" HEIGHT="6"></TD></TR>
+      <TR><TD PORT="left"></TD><TD BGCOLOR="#E2E8F0"><B>Тендер</B></TD><TD PORT="right"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">идентификатор PK</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">название</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">версия плана</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">срок ответов</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">статус</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">вес цены</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">вес срока</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">вес истории</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD PORT="w2"></TD><TD ALIGN="LEFT">проект FK</TD><TD PORT="e2"></TD></TR>
+      <TR><TD PORT="w3"></TD><TD ALIGN="LEFT">специализация FK</TD><TD PORT="e3"></TD></TR>
+      <TR><TD PORT="botl" HEIGHT="6"></TD><TD PORT="bot" HEIGHT="6"></TD><TD PORT="botr" HEIGHT="6"></TD></TR>
+    </TABLE>>]
+
+  bid [pos="93.6,776.2!" label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#334155" BGCOLOR="#F8FAFC">
+      <TR><TD PORT="topl" WIDTH="16" HEIGHT="6"></TD><TD PORT="top" HEIGHT="6"></TD><TD PORT="topr" WIDTH="16" HEIGHT="6"></TD></TR>
+      <TR><TD PORT="left"></TD><TD BGCOLOR="#E2E8F0"><B>Предложение</B></TD><TD PORT="right"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">идентификатор PK</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">цена</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">срок, дни</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">дата начала</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">гарантия, месяцы</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">место в рейтинге</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">победитель</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">обоснование</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD PORT="w2"></TD><TD ALIGN="LEFT">тендер FK</TD><TD PORT="e2"></TD></TR>
+      <TR><TD PORT="w3"></TD><TD ALIGN="LEFT">подрядчик FK</TD><TD PORT="e3"></TD></TR>
+      <TR><TD PORT="botl" HEIGHT="6"></TD><TD PORT="bot" HEIGHT="6"></TD><TD PORT="botr" HEIGHT="6"></TD></TR>
+    </TABLE>>]
+
+  defect [pos="619.2,115.2!" label=<
+    <TABLE BORDER="1" CELLBORDER="0" CELLSPACING="0" CELLPADDING="3" COLOR="#334155" BGCOLOR="#F8FAFC">
+      <TR><TD PORT="topl" WIDTH="16" HEIGHT="6"></TD><TD PORT="top" HEIGHT="6"></TD><TD PORT="topr" WIDTH="16" HEIGHT="6"></TD></TR>
+      <TR><TD PORT="left"></TD><TD BGCOLOR="#E2E8F0"><B>Скрытый дефект</B></TD><TD PORT="right"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">идентификатор PK</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">описание</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">статус</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">решение эксперта</TD><TD></TD></TR>
+      <TR><TD></TD><TD ALIGN="LEFT">код новой работы</TD><TD></TD></TR>
+      <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
+      <TR><TD PORT="w2"></TD><TD ALIGN="LEFT">работа FK</TD><TD PORT="e2"></TD></TR>
+      <TR><TD PORT="w3"></TD><TD ALIGN="LEFT">элемент FK</TD><TD PORT="e3"></TD></TR>
+      <TR><TD PORT="w4"></TD><TD ALIGN="LEFT">эксперт FK</TD><TD PORT="e4"></TD></TR>
+      <TR><TD PORT="botl" HEIGHT="6"></TD><TD PORT="bot" HEIGHT="6"></TD><TD PORT="botr" HEIGHT="6"></TD></TR>
+    </TABLE>>]
+
+  account [group=people]
+  contractor [group=people]
+  bid [group=people]
+  facility [group=place]
+  element [group=place]
+  project [group=place]
+  work [group=place]
+  defect [group=place]
+  spec [group=skill]
+  work_type [group=skill]
+  tender [group=skill]
+
+  subgraph layout {
+    edge [style=invis weight=8]
+    account -> contractor -> bid
+    facility -> element -> project -> work -> defect
+    spec -> work_type -> tender
+    {rank=same; account; facility}
+    {rank=same; contractor; element; spec}
+    {rank=same; bid; project; work_type}
+    {rank=same; work; tender}
+  }
+
+  account:bot -> contractor:top [comment="teetee,odottee"]
+  account:right -> facility:left [comment="teetee,crowodot"]
+  account:botl -> project:left [comment="teetee,crowodot" constraint=false]
+  account:botr -> defect:left [comment="odottee,crowodot" constraint=false]
+
+  contractor:right -> spec:left [comment="crowodot,crowodot"]
+  contractor:bot -> bid:top [comment="teetee,crowodot" constraint=false]
+  contractor:botr -> work:left [comment="odottee,crowodot" constraint=false]
+
+  facility:bot -> element:top [comment="teetee,crowodot"]
+  facility:botr -> project:topl [comment="teetee,crowodot" constraint=false]
+
+  element:topr -> element:right [comment="odottee,crowodot" constraint=false]
+  element:bot -> project:top [comment="teetee,crowodot"]
+  element:botr -> work:topl [comment="teetee,crowodot" constraint=false]
+  element:botl -> defect:topl [comment="teetee,crowodot" constraint=false]
+
+  spec:bot -> work_type:top [comment="teetee,crowodot"]
+  spec:botr -> tender:top [comment="teetee,crowodot" constraint=false]
+
+  work_type:botl -> work:topr [comment="teetee,crowodot" constraint=false]
+
+  project:bot -> work:top [comment="teetee,crowodot"]
+  project:botr -> tender:topl [comment="teetee,crowodot" constraint=false]
+
+  tender:left -> work:right [comment="odottee,crowodot"]
+  tender:botl -> bid:right [comment="teetee,crowodot" constraint=false]
+
+  work:botl -> work:botr [comment="crowodot,crowodot" constraint=false]
+  work:bot -> defect:top [comment="teetee,crowodot"]
+}
