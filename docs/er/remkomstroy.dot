@@ -104,7 +104,6 @@ digraph remkomstroy {
       <TR><TD></TD><TD ALIGN="LEFT">статус</TD><TD></TD></TR>
       <TR><TD></TD><TD ALIGN="LEFT">текущая версия</TD><TD></TD></TR>
       <TR><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD><TD HEIGHT="1" BGCOLOR="#94A3B8"></TD></TR>
-      <TR><TD PORT="w2"></TD><TD ALIGN="LEFT">объект FK</TD><TD PORT="e2"></TD></TR>
       <TR><TD PORT="w3"></TD><TD ALIGN="LEFT">элемент FK</TD><TD PORT="e3"></TD></TR>
       <TR><TD PORT="w4"></TD><TD ALIGN="LEFT">автор FK</TD><TD PORT="e4"></TD></TR>
       <TR><TD PORT="botl" HEIGHT="6"></TD><TD PORT="bot" HEIGHT="6"></TD><TD PORT="botr" HEIGHT="6"></TD></TR>
@@ -219,7 +218,6 @@ digraph remkomstroy {
   contractor:botr -> work:left [comment="odottee,crowodot" constraint=false]
 
   facility:bot -> element:top [comment="teetee,crowodot"]
-  facility:botr -> project:topl [comment="teetee,crowodot" constraint=false]
 
   element:topr -> element:right [comment="odottee,crowodot" constraint=false]
   element:bot -> project:top [comment="teetee,crowodot"]

@@ -229,6 +229,7 @@ def route_between(tail, head, boxes):
     beside_place = boxes["facility"][1] + 34
     further = beside_place + 26
     furthest = further + 26
+    highway = (boxes["project"][3] + boxes["work"][2]) / 2
 
     pair = (tail, head)
     if pair == ("account", "contractor"):
@@ -239,7 +240,7 @@ def route_between(tail, head, boxes):
     elif pair == ("account", "project"):
         start = border_point(A, "w", 0.08)
         end = border_point(B, "w", 0.92)
-        points = [start, (far_left, start[1]), (far_left, -605), (470, -605), (470, end[1]), end]
+        points = [start, (far_left, start[1]), (far_left, highway), (470, highway), (470, end[1]), end]
     elif pair == ("account", "defect"):
         start = border_point(A, "w", 0.92)
         end = border_point(B, "w", 0.92)
@@ -250,25 +251,22 @@ def route_between(tail, head, boxes):
     elif pair == ("contractor", "bid"):
         points = [border_point(A, "s", 0.5), border_point(B, "n", 0.5)]
     elif pair == ("contractor", "work"):
-        start = border_point(A, "w", 0.92)
-        end = border_point(B, "w", 0.72)
-        points = [start, (left, start[1]), (left, -605), (beside_tender, -605), (beside_tender, end[1]), end]
+        start = border_point(A, "w", 0.78)
+        end = border_point(B, "w", 0.84)
+        lane = boxes["tender"][1] + 76
+        points = [start, (left + 20, start[1]), (left + 20, highway), (lane, highway), (lane, end[1]), end]
     elif pair == ("facility", "element"):
         points = [border_point(A, "s", 0.5), border_point(B, "n", 0.5)]
-    elif pair == ("facility", "project"):
-        start = border_point(A, "e", 0.62)
-        end = border_point(B, "e", 0.18)
-        points = [start, (beside_place, start[1]), (beside_place, end[1]), end]
     elif pair == ("element", "element"):
-        start = border_point(A, "e", 0.18)
-        end = border_point(A, "e", 0.48)
+        start = border_point(A, "e", 0.12)
+        end = border_point(A, "e", 0.4)
         x = A[1] + 26
         points = [start, (x, start[1]), (x, end[1]), end]
     elif pair == ("element", "project"):
         points = [border_point(A, "s", 0.5), border_point(B, "n", 0.5)]
     elif pair == ("element", "work"):
-        start = border_point(A, "e", 0.78)
-        end = border_point(B, "e", 0.22)
+        start = border_point(A, "e", 0.66)
+        end = border_point(B, "e", 0.16)
         points = [start, (further, start[1]), (further, end[1]), end]
     elif pair == ("element", "defect"):
         start = border_point(A, "e", 0.92)
@@ -288,11 +286,11 @@ def route_between(tail, head, boxes):
         points = [border_point(A, "s", 0.5), border_point(B, "n", 0.5)]
     elif pair == ("project", "tender"):
         start = border_point(A, "w", 0.78)
-        end = border_point(B, "e", 0.22)
+        end = border_point(B, "e", 0.48)
         x = boxes["tender"][1] + 52
         points = [start, (x, start[1]), (x, end[1]), end]
     elif pair == ("tender", "work"):
-        y = max(A[2], B[2]) + 42
+        y = max(A[2], B[2]) + 78
         points = [(A[1], y), (B[0], y)]
     elif pair == ("tender", "bid"):
         start = border_point(A, "w", 0.55)
@@ -347,9 +345,52 @@ def decorate(svg):
         return f"<!-- {tail_kind},{head_kind} -->\n" + group
 
     updated, count = pattern.subn(replace, svg)
-    if count != 22:
-        raise SystemExit(f"ожидал 22 связи, обработал {count}")
-    return updated
+    if count != 21:
+        raise SystemExit(f"ожидал 21 связь, обработал {count}")
+    return expand_canvas(updated)
+
+
+def expand_canvas(svg):
+    """Линии рисуются после раскладки и не должны обрезаться краем листа."""
+    translate = re.search(r"translate\(([-\d.]+) ([-\d.]+)\)", svg)
+    tx, ty = float(translate.group(1)), float(translate.group(2))
+    xs, ys = [], []
+    for path in re.findall(r'\bd="([^"]+)"', svg):
+        nums = [float(value) for value in re.findall(r"-?\d+(?:\.\d+)?", path)]
+        xs.extend(nums[0::2])
+        ys.extend(nums[1::2])
+    for cx, cy, radius in re.findall(r'cx="([^"]+)" cy="([^"]+)" r="([^"]+)"', svg):
+        radius = float(radius)
+        xs.extend((float(cx) - radius, float(cx) + radius))
+        ys.extend((float(cy) - radius, float(cy) + radius))
+    pad = 20
+    minx = min(x + tx for x in xs) - pad
+    maxx = max(x + tx for x in xs) + pad
+    miny = min(y + ty for y in ys) - pad
+    maxy = max(y + ty for y in ys) + pad
+    minx, miny = min(minx, 0), min(miny, 0)
+    width, height = maxx - minx, maxy - miny
+    svg = re.sub(r'width="[\d.]+pt"', f'width="{width:.0f}pt"', svg, count=1)
+    svg = re.sub(r'height="[\d.]+pt"', f'height="{height:.0f}pt"', svg, count=1)
+    svg = re.sub(
+        r'viewBox="[^"]+"',
+        f'viewBox="{minx:.2f} {miny:.2f} {width:.2f} {height:.2f}"',
+        svg,
+        count=1,
+    )
+    left, right = minx - tx, maxx - tx
+    top, bottom = miny - ty, maxy - ty
+    background = (
+        f"{left:.2f},{bottom:.2f} {left:.2f},{top:.2f} "
+        f"{right:.2f},{top:.2f} {right:.2f},{bottom:.2f} {left:.2f},{bottom:.2f}"
+    )
+    svg = re.sub(
+        r'(<polygon fill="white" stroke="none" points=")[^"]+"',
+        rf'\1{background}"',
+        svg,
+        count=1,
+    )
+    return svg
 
 
 def main():
