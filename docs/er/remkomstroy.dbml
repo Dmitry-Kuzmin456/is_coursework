@@ -1,0 +1,341 @@
+// Даталогическая модель РемКомСтрой. Источник: db/001_schema.sql.
+// Синтаксис DBML: https://dbml.dbdiagram.io/docs/
+// increment обозначает автогенерацию id; точное GENERATED ALWAYS AS IDENTITY задано в SQL.
+// Триггеры и отложенные проверки FK определены в SQL, а не в DBML.
+
+Project remkomstroy {
+  database_type: 'PostgreSQL'
+  Note: '17 таблиц текущей даталогической модели РемКомСтрой.'
+}
+
+// Пользователь
+Table remkomstroy.app_users {
+  id bigint [pk, not null, increment]
+  full_name text [not null]
+  email text [not null]
+
+  indexes {
+    (`lower(email)`) [name: 'app_users_email_unique', unique]
+  }
+
+  checks {
+    `btrim(full_name) <> ''`
+    `email ~ '^[^@[:space:]]+@[^@[:space:]]+$'`
+  }
+
+  Note: 'Пользователь'
+}
+
+// Роль
+Table remkomstroy.roles {
+  id bigint [pk, not null, increment]
+  name text [not null, unique]
+
+  checks {
+    `btrim(name) <> ''`
+  }
+
+  Note: 'Роль'
+}
+
+// Роли пользователей
+Table remkomstroy.user_roles {
+  user_id bigint [not null]
+  role_id bigint [not null]
+
+  indexes {
+    (user_id, role_id) [pk]
+  }
+
+  Note: 'Роли пользователей'
+}
+
+// Подрядчик
+Table remkomstroy.contractors {
+  id bigint [pk, not null, increment]
+  company_name text [not null]
+  status text [not null, default: 'ACTIVE']
+
+  checks {
+    `btrim(company_name) <> ''`
+    `status IN ('ACTIVE', 'BLOCKED')`
+  }
+
+  Note: 'Подрядчик'
+}
+
+// Представитель компании
+Table remkomstroy.company_representatives {
+  user_id bigint [pk, not null]
+  contractor_id bigint [not null]
+  is_primary boolean [not null, default: false]
+
+  indexes {
+    (contractor_id) [name: 'company_representatives_contractor_idx']
+  }
+
+  Note: 'Представитель компании; один пользователь представляет не более одной компании. Главный представитель необязателен; число главных не ограничено.'
+}
+
+// Объект ремонта
+Table remkomstroy.facilities {
+  id bigint [pk, not null, increment]
+  name text [not null]
+  kind text [not null]
+  address text [not null]
+
+  checks {
+    `btrim(name) <> ''`
+    `btrim(kind) <> ''`
+    `btrim(address) <> ''`
+  }
+
+  Note: 'Объект ремонта'
+}
+
+// Элемент объекта
+Table remkomstroy.facility_elements {
+  id bigint [pk, not null, increment]
+  name text [not null]
+  element_type text [not null]
+  location text [null]
+  facility_id bigint [not null]
+  parent_id bigint [null]
+
+  indexes {
+    (id, facility_id) [unique]
+    (parent_id, facility_id) [name: 'facility_elements_parent_idx']
+  }
+
+  checks {
+    `btrim(name) <> ''`
+    `btrim(element_type) <> ''`
+    `parent_id IS NULL OR parent_id <> id`
+  }
+
+  Note: 'Элемент объекта; составной FK родителя в SQL имеет DEFERRABLE INITIALLY IMMEDIATE.'
+}
+
+// Вид работ
+Table remkomstroy.work_types {
+  id bigint [pk, not null, increment]
+  name text [not null, unique]
+
+  checks {
+    `btrim(name) <> ''`
+  }
+
+  Note: 'Вид работ'
+}
+
+// Виды работ подрядчика
+Table remkomstroy.contractor_work_types {
+  contractor_id bigint [not null]
+  work_type_id bigint [not null]
+
+  indexes {
+    (contractor_id, work_type_id) [pk]
+  }
+
+  Note: 'Виды работ подрядчика'
+}
+
+// Проект ремонта
+Table remkomstroy.repair_projects {
+  id bigint [pk, not null, increment]
+  name text [not null]
+  defect_description text [not null]
+  priority text [not null, default: 'NORMAL']
+  status text [not null, default: 'DRAFT']
+  current_version integer [not null, default: 1]
+  element_id bigint [not null]
+  author_id bigint [not null]
+
+  checks {
+    `btrim(name) <> ''`
+    `btrim(defect_description) <> ''`
+    `priority IN ('LOW', 'NORMAL', 'HIGH', 'URGENT')`
+    `status IN ('DRAFT', 'PLANNING', 'TENDERING', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED')`
+    `current_version > 0`
+  }
+
+  Note: 'Проект ремонта'
+}
+
+// Ремонтная работа
+Table remkomstroy.repair_works {
+  id bigint [pk, not null, increment]
+  name text [not null]
+  version_no integer [not null, default: 1]
+  work_code text [not null]
+  volume numeric(14,3) [not null]
+  status text [not null, default: 'PLANNED']
+  project_id bigint [not null]
+  work_type_id bigint [not null]
+  element_id bigint [not null]
+  contractor_id bigint [null]
+
+  indexes {
+    (project_id, version_no, work_code) [unique]
+    (project_id, version_no) [name: 'repair_works_project_idx']
+    (contractor_id) [name: 'repair_works_contractor_idx']
+  }
+
+  checks {
+    `btrim(name) <> ''`
+    `version_no > 0`
+    `btrim(work_code) <> ''`
+    `volume > 0 AND volume <> 'NaN'::numeric`
+    `status IN ('PLANNED', 'BLOCKED', 'READY', 'IN_PROGRESS', 'PAUSED', 'ON_ACCEPTANCE', 'REWORK', 'ACCEPTED', 'CANCELLED')`
+  }
+
+  Note: 'Ремонтная работа'
+}
+
+// Зависимости работ
+Table remkomstroy.work_dependencies {
+  predecessor_id bigint [not null]
+  successor_id bigint [not null]
+
+  indexes {
+    (predecessor_id, successor_id) [pk]
+    (successor_id) [name: 'work_dependencies_successor_idx']
+  }
+
+  checks {
+    `predecessor_id <> successor_id`
+  }
+
+  Note: 'Зависимости работ'
+}
+
+// Тендер
+Table remkomstroy.tenders {
+  id bigint [pk, not null, increment]
+  name text [not null]
+  plan_version integer [not null]
+  response_deadline timestamptz [not null]
+  status text [not null, default: 'DRAFT']
+  project_id bigint [not null]
+
+  checks {
+    `btrim(name) <> ''`
+    `plan_version > 0`
+    `status IN ('DRAFT', 'OPEN', 'CLOSED', 'AWARDED', 'CANCELLED')`
+  }
+
+  Note: 'Тендер'
+}
+
+// Работы тендера
+Table remkomstroy.tender_works {
+  tender_id bigint [not null]
+  work_id bigint [not null]
+
+  indexes {
+    (tender_id, work_id) [pk]
+  }
+
+  Note: 'Работы тендера'
+}
+
+// Предложение
+Table remkomstroy.bids {
+  id bigint [pk, not null, increment]
+  price numeric(14,2) [not null]
+  duration_days integer [not null]
+  start_date date [not null]
+  warranty_months integer [not null]
+  rank_place integer [null]
+  is_winner boolean [not null, default: false]
+  justification text [null]
+  tender_id bigint [not null]
+  contractor_id bigint [not null]
+
+  indexes {
+    (tender_id, contractor_id) [unique]
+  }
+
+  checks {
+    `price > 0 AND price <> 'NaN'::numeric`
+    `duration_days > 0`
+    `warranty_months >= 0`
+    `rank_place > 0`
+    `NOT is_winner OR rank_place IS NOT NULL`
+    `NOT is_winner OR rank_place = 1 OR (justification IS NOT NULL AND btrim(justification) <> '')`
+  }
+
+  Note: 'Предложение; в SQL дополнительно UNIQUE (tender_id) WHERE is_winner: не более одного победителя на тендер.'
+}
+
+// Запрос на изменение
+Table remkomstroy.change_requests {
+  id bigint [pk, not null, increment]
+  description text [not null]
+  status text [not null, default: 'SUBMITTED']
+  expert_decision text [null]
+  source_work_id bigint [not null]
+  element_id bigint [not null]
+  author_id bigint [not null]
+  expert_id bigint [null]
+
+  checks {
+    `btrim(description) <> ''`
+    `status IN ('SUBMITTED', 'NEEDS_INFO', 'APPROVED', 'REJECTED')`
+    `status NOT IN ('APPROVED', 'REJECTED', 'NEEDS_INFO') OR (expert_id IS NOT NULL AND expert_decision IS NOT NULL AND btrim(expert_decision) <> '')`
+  }
+
+  Note: 'Запрос на изменение'
+}
+
+// Приёмка работы
+Table remkomstroy.acceptances {
+  id bigint [pk, not null, increment]
+  acceptance_date date [not null, default: `CURRENT_DATE`]
+  result text [not null]
+  remarks text [null]
+  correction_deadline date [null]
+  work_id bigint [not null]
+  expert_id bigint [not null]
+
+  indexes {
+    (work_id, id [desc]) [name: 'acceptances_work_idx']
+  }
+
+  checks {
+    `result IN ('ACCEPTED', 'REWORK')`
+    `correction_deadline IS NULL OR correction_deadline >= acceptance_date`
+    `result <> 'REWORK' OR (remarks IS NOT NULL AND btrim(remarks) <> '' AND correction_deadline IS NOT NULL)`
+  }
+
+  Note: 'Приёмка работы'
+}
+
+// Внешние ключи — 27 связей.
+Ref fk_user_roles_1: remkomstroy.user_roles.user_id > remkomstroy.app_users.id [delete: cascade]
+Ref fk_user_roles_2: remkomstroy.user_roles.role_id > remkomstroy.roles.id [delete: restrict]
+Ref fk_company_representatives_1: remkomstroy.app_users.id - remkomstroy.company_representatives.user_id [delete: cascade]
+Ref fk_company_representatives_2: remkomstroy.company_representatives.contractor_id > remkomstroy.contractors.id [delete: cascade]
+Ref fk_facility_elements_1: remkomstroy.facility_elements.facility_id > remkomstroy.facilities.id [delete: restrict]
+Ref fk_facility_elements_2: remkomstroy.facility_elements.(parent_id, facility_id) > remkomstroy.facility_elements.(id, facility_id) [delete: restrict]
+Ref fk_contractor_work_types_1: remkomstroy.contractor_work_types.contractor_id > remkomstroy.contractors.id [delete: cascade]
+Ref fk_contractor_work_types_2: remkomstroy.contractor_work_types.work_type_id > remkomstroy.work_types.id [delete: restrict]
+Ref fk_repair_projects_1: remkomstroy.repair_projects.element_id > remkomstroy.facility_elements.id [delete: restrict]
+Ref fk_repair_projects_2: remkomstroy.repair_projects.author_id > remkomstroy.app_users.id [delete: restrict]
+Ref fk_repair_works_1: remkomstroy.repair_works.project_id > remkomstroy.repair_projects.id [delete: restrict]
+Ref fk_repair_works_2: remkomstroy.repair_works.work_type_id > remkomstroy.work_types.id [delete: restrict]
+Ref fk_repair_works_3: remkomstroy.repair_works.element_id > remkomstroy.facility_elements.id [delete: restrict]
+Ref fk_repair_works_4: remkomstroy.repair_works.contractor_id > remkomstroy.contractors.id [delete: restrict]
+Ref fk_work_dependencies_1: remkomstroy.work_dependencies.predecessor_id > remkomstroy.repair_works.id [delete: restrict]
+Ref fk_work_dependencies_2: remkomstroy.work_dependencies.successor_id > remkomstroy.repair_works.id [delete: restrict]
+Ref fk_tenders_1: remkomstroy.tenders.project_id > remkomstroy.repair_projects.id [delete: restrict]
+Ref fk_tender_works_1: remkomstroy.tender_works.tender_id > remkomstroy.tenders.id [delete: cascade]
+Ref fk_tender_works_2: remkomstroy.tender_works.work_id > remkomstroy.repair_works.id [delete: restrict]
+Ref fk_bids_1: remkomstroy.bids.tender_id > remkomstroy.tenders.id [delete: restrict]
+Ref fk_bids_2: remkomstroy.bids.contractor_id > remkomstroy.contractors.id [delete: restrict]
+Ref fk_change_requests_1: remkomstroy.change_requests.source_work_id > remkomstroy.repair_works.id [delete: restrict]
+Ref fk_change_requests_2: remkomstroy.change_requests.element_id > remkomstroy.facility_elements.id [delete: restrict]
+Ref fk_change_requests_3: remkomstroy.change_requests.author_id > remkomstroy.app_users.id [delete: restrict]
+Ref fk_change_requests_4: remkomstroy.change_requests.expert_id > remkomstroy.app_users.id [delete: restrict]
+Ref fk_acceptances_1: remkomstroy.acceptances.work_id > remkomstroy.repair_works.id [delete: restrict]
+Ref fk_acceptances_2: remkomstroy.acceptances.expert_id > remkomstroy.app_users.id [delete: restrict]
