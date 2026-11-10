@@ -1,18 +1,17 @@
-<?xml version='1.0' encoding='utf-8'?>
 <mxfile host="app.diagrams.net">
   <diagram id="remkomstroy-er" name="ER-модель">
-    <mxGraphModel dx="2142" dy="3128" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1530" math="0" shadow="0">
+    <mxGraphModel dx="954" dy="2242" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1530" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="role" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#334155;strokeWidth=1.5;align=left;verticalAlign=top;spacing=0;overflow=fill;fontFamily=Arial;fontSize=14;" value="&lt;table style=&quot;border-collapse:collapse;width:100%;font-family:Arial;font-size:14px&quot;&gt;&lt;tr&gt;&lt;td style=&quot;background-color:#e2e8f0;text-align:center;padding:8px&quot;&gt;&lt;b&gt;Роль&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:5px 10px;border-bottom:1px solid #94a3b8&quot;&gt;PK&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:3px 10px&quot;&gt;название&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
           <mxGeometry height="93" width="280" x="70" y="70" as="geometry" />
         </mxCell>
-        <mxCell id="account" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#334155;strokeWidth=1.5;align=left;verticalAlign=top;spacing=0;overflow=fill;fontFamily=Arial;fontSize=14;" value="&lt;table style=&quot;border-collapse:collapse;width:100%;font-family:Arial;font-size:14px&quot;&gt;&lt;tr&gt;&lt;td style=&quot;background-color:#e2e8f0;text-align:center;padding:8px&quot;&gt;&lt;b&gt;Пользователь&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:5px 10px;border-bottom:1px solid #94a3b8&quot;&gt;PK&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:3px 10px&quot;&gt;ФИО&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:3px 10px&quot;&gt;email&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;height:1px;padding:0;background-color:#94a3b8&quot;&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:3px 10px&quot;&gt;подрядчик FK&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+        <mxCell id="account" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#334155;strokeWidth=1.5;align=left;verticalAlign=top;spacing=0;overflow=fill;fontFamily=Arial;fontSize=14;" value="&lt;table style=&quot;border-collapse:collapse;width:100%;font-family:Arial;font-size:14px&quot;&gt;&lt;tr&gt;&lt;td style=&quot;background-color:#e2e8f0;text-align:center;padding:8px&quot;&gt;&lt;b&gt;Пользователь&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:5px 10px;border-bottom:1px solid #94a3b8&quot;&gt;PK&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:3px 10px&quot;&gt;ФИО&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:3px 10px&quot;&gt;email&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
           <mxGeometry height="151" width="280" x="480" y="70" as="geometry" />
         </mxCell>
         <mxCell id="contractor" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#334155;strokeWidth=1.5;align=left;verticalAlign=top;spacing=0;overflow=fill;fontFamily=Arial;fontSize=14;" value="&lt;table style=&quot;border-collapse:collapse;width:100%;font-family:Arial;font-size:14px&quot;&gt;&lt;tr&gt;&lt;td style=&quot;background-color:#e2e8f0;text-align:center;padding:8px&quot;&gt;&lt;b&gt;Подрядчик&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:5px 10px;border-bottom:1px solid #94a3b8&quot;&gt;PK&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:3px 10px&quot;&gt;название компании&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:3px 10px&quot;&gt;статус&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
-          <mxGeometry height="118" width="280" x="70" y="350" as="geometry" />
+          <mxGeometry height="151" width="280" x="70" y="350" as="geometry" />
         </mxCell>
         <mxCell id="facility" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#334155;strokeWidth=1.5;align=left;verticalAlign=top;spacing=0;overflow=fill;fontFamily=Arial;fontSize=14;" value="&lt;table style=&quot;border-collapse:collapse;width:100%;font-family:Arial;font-size:14px&quot;&gt;&lt;tr&gt;&lt;td style=&quot;background-color:#e2e8f0;text-align:center;padding:8px&quot;&gt;&lt;b&gt;Объект ремонта&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:5px 10px;border-bottom:1px solid #94a3b8&quot;&gt;PK&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:3px 10px&quot;&gt;название&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:3px 10px&quot;&gt;вид&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:3px 10px&quot;&gt;адрес&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
           <mxGeometry height="143" width="280" x="1360" y="70" as="geometry" />
@@ -44,19 +43,11 @@
         <mxCell id="e01" edge="1" parent="1" source="account" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=30;html=1;strokeColor=#475569;strokeWidth=1.4;startArrow=ERzeroToMany;startFill=0;startSize=14;endArrow=ERzeroToMany;endFill=0;endSize=14;fontFamily=Arial;fontSize=12;fontColor=#334155;labelBackgroundColor=#ffffff;exitX=0;exitY=0.25;exitDx=0;exitDy=0;entryX=1;entryY=0.4;entryDx=0;entryDy=0;jumpStyle=arc;" target="role" value="">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e02" edge="1" parent="1" source="contractor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=30;html=1;strokeColor=#475569;strokeWidth=1.4;startArrow=ERzeroToOne;startFill=0;startSize=14;endArrow=ERzeroToMany;endFill=0;endSize=14;fontFamily=Arial;fontSize=12;fontColor=#334155;labelBackgroundColor=#ffffff;exitX=0.995;exitY=0.146;exitDx=0;exitDy=0;entryX=-0.002;entryY=0.894;entryDx=0;entryDy=0;exitPerimeter=0;entryPerimeter=0;jumpStyle=arc;" target="account" value="">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="400" y="367" />
-              <mxPoint x="400" y="205" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
         <mxCell id="e03" edge="1" parent="1" source="contractor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=30;html=1;strokeColor=#475569;strokeWidth=1.4;startArrow=ERzeroToMany;startFill=0;startSize=14;endArrow=ERzeroToMany;endFill=0;endSize=14;fontFamily=Arial;fontSize=12;fontColor=#334155;labelBackgroundColor=#ffffff;exitX=1;exitY=0.8;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;jumpStyle=arc;" target="work_type" value="">
-          <mxGeometry relative="1" as="geometry">
+          <mxGeometry relative="1" x="-0.0633" as="geometry">
             <Array as="points">
-              <mxPoint x="410" y="444" />
-              <mxPoint x="410" y="1176" />
+              <mxPoint x="410" y="470.8" />
+              <mxPoint x="410" y="1176.5" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -97,15 +88,6 @@
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="e11" edge="1" parent="1" source="contractor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=30;html=1;strokeColor=#475569;strokeWidth=1.4;startArrow=ERzeroToOne;startFill=0;startSize=14;endArrow=ERzeroToMany;endFill=0;endSize=14;fontFamily=Arial;fontSize=12;fontColor=#334155;labelBackgroundColor=#ffffff;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.15;entryDx=0;entryDy=0;jumpStyle=arc;" target="work" value="">
-          <mxGeometry relative="1" as="geometry">
-            <Array as="points">
-              <mxPoint x="820" y="410" />
-              <mxPoint x="820" y="590" />
-              <mxPoint x="920" y="590" />
-            </Array>
-          </mxGeometry>
-        </mxCell>
         <mxCell id="e12" edge="1" parent="1" source="work" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=30;html=1;strokeColor=#475569;strokeWidth=1.4;startArrow=ERzeroToMany;startFill=0;startSize=14;endArrow=ERzeroToMany;endFill=0;endSize=14;fontFamily=Arial;fontSize=12;fontColor=#334155;labelBackgroundColor=#ffffff;exitX=1;exitY=0.55;exitDx=0;exitDy=0;entryX=1;entryY=0.85;entryDx=0;entryDy=0;jumpStyle=arc;" target="work" value="">
           <mxGeometry relative="1" as="geometry">
             <Array as="points">
@@ -115,14 +97,13 @@
           </mxGeometry>
         </mxCell>
         <mxCell id="e13" edge="1" parent="1" source="project" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=30;html=1;strokeColor=#475569;strokeWidth=1.4;startArrow=ERmandOne;startFill=0;startSize=14;endArrow=ERzeroToMany;endFill=0;endSize=14;fontFamily=Arial;fontSize=12;fontColor=#334155;labelBackgroundColor=#ffffff;exitX=0;exitY=0.8;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;jumpStyle=arc;" target="tender" value="">
-          <mxGeometry relative="1" as="geometry">
+          <mxGeometry relative="1" x="0.0013" as="geometry">
             <Array as="points">
-              <mxPoint x="620" y="271" />
+              <mxPoint x="800" y="270.8" />
+              <mxPoint x="800" y="560" />
+              <mxPoint x="620" y="560" />
             </Array>
           </mxGeometry>
-        </mxCell>
-        <mxCell id="e14" edge="1" parent="1" source="tender" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=30;html=1;strokeColor=#475569;strokeWidth=1.4;startArrow=ERzeroToMany;startFill=0;startSize=14;endArrow=ERzeroToMany;endFill=0;endSize=14;fontFamily=Arial;fontSize=12;fontColor=#334155;labelBackgroundColor=#ffffff;exitX=1.002;exitY=0.443;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;exitPerimeter=0;jumpStyle=arc;" target="work" value="">
-          <mxGeometry relative="1" as="geometry" />
         </mxCell>
         <mxCell id="e15" edge="1" parent="1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=30;html=1;strokeColor=#475569;strokeWidth=1.4;startArrow=ERmandOne;startFill=0;startSize=14;endArrow=ERzeroToMany;endFill=0;endSize=14;fontFamily=Arial;fontSize=12;fontColor=#334155;labelBackgroundColor=#ffffff;entryX=1;entryY=0.2;entryDx=0;entryDy=0;jumpStyle=arc;" target="bid" value="">
           <mxGeometry relative="1" as="geometry">
@@ -176,6 +157,24 @@
               <mxPoint x="1060" y="1440" />
             </Array>
           </mxGeometry>
+        </mxCell>
+        <mxCell id="0Ubb82_YHxdjm3mXcIVl-2" edge="1" parent="1" source="contractor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=30;html=1;strokeColor=#475569;strokeWidth=1.4;startArrow=ERzeroToOne;startFill=0;startSize=14;endArrow=ERzeroToMany;endFill=0;endSize=14;fontFamily=Arial;fontSize=12;fontColor=#334155;labelBackgroundColor=#ffffff;entryX=0.004;entryY=0.155;entryDx=0;entryDy=0;jumpStyle=arc;exitX=0.854;exitY=0.984;exitDx=0;exitDy=0;entryPerimeter=0;exitPerimeter=0;" target="work" value="">
+          <mxGeometry relative="1" x="0.4235" as="geometry">
+            <Array as="points">
+              <mxPoint x="309.1" y="530" />
+              <mxPoint x="820" y="530" />
+              <mxPoint x="820" y="590.5" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="company_representative" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#f8fafc;strokeColor=#334155;strokeWidth=1.5;align=left;verticalAlign=top;spacing=0;overflow=fill;fontFamily=Arial;fontSize=14;" value="&lt;table style=&quot;border-collapse:collapse;width:100%;font-family:Arial;font-size:14px&quot;&gt;&lt;tr&gt;&lt;td style=&quot;background-color:#e2e8f0;text-align:center;padding:8px&quot;&gt;&lt;b&gt;Представитель компании&lt;/b&gt;&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:3px 10px&quot;&gt;пользователь FK&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:3px 10px&quot;&gt;компания FK&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td style=&quot;padding:3px 10px&quot;&gt;главный представитель (bool)&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;" vertex="1">
+          <mxGeometry height="135" width="300" x="480" y="350" as="geometry" />
+        </mxCell>
+        <mxCell id="e02" edge="1" parent="1" source="contractor" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=30;html=1;strokeColor=#475569;strokeWidth=1.4;startArrow=ERmandOne;startFill=0;startSize=14;endArrow=ERzeroToMany;endFill=0;endSize=14;exitX=0.995;exitY=0.301;exitDx=0;exitDy=0;entryX=-0.009;entryY=0.344;entryDx=0;entryDy=0;jumpStyle=arc;exitPerimeter=0;entryPerimeter=0;" target="company_representative" value="">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e24" edge="1" parent="1" source="account" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=30;html=1;strokeColor=#475569;strokeWidth=1.4;startArrow=ERmandOne;startFill=0;startSize=14;endArrow=ERzeroToOne;endFill=0;endSize=14;exitX=0.533;exitY=0.983;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;jumpStyle=arc;exitPerimeter=0;" target="company_representative" value="">
+          <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>
