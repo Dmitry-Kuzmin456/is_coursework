@@ -29,4 +29,13 @@ DROP FUNCTION IF EXISTS
     s466402.increment_project_version(),
     s466402.prevent_element_cycle();
 
+DROP TYPE IF EXISTS
+    s466402.c_contractor_status,
+    s466402.c_project_status,
+    s466402.c_repair_work_status,
+    s466402.c_tender_status,
+    s466402.c_change_request_status,
+    s466402.c_acceptance_result,
+    s466402.c_project_priority;
+
 COMMIT;

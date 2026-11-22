@@ -51,6 +51,10 @@ RETURNING id AS replacement \gset
 INSERT INTO c_repair_works (name, version_no, work_code, volume, status, project_id, work_type_id, element_id, contractor_id)
 VALUES ('Укрепить проём', 1, 'REINFORCE', 1, 'ON_ACCEPTANCE', :project, :preparation_type, :window, :contractor)
 RETURNING id AS reinforcement \gset
+-- Запланированная работа пока не назначена подрядчику.
+INSERT INTO c_repair_works (name, version_no, work_code, volume, status, project_id, work_type_id, element_id)
+VALUES ('Подготовить соседний проём', 1, 'PREP_NEXT', 1, 'PLANNED', :project, :preparation_type, :window);
+
 INSERT INTO c_work_dependencies (predecessor_id, successor_id)
 VALUES (:preparation, :reinforcement), (:reinforcement, :replacement);
 
