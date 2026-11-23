@@ -173,7 +173,7 @@ CREATE INDEX c_repair_works_ready_idx
     WHERE status = 'ASSIGNED';
 
 CREATE INDEX c_bids_tender_price_idx
-    ON c_bids (tender_id, price, id);
+    ON c_bids (tender_id, price);
 
 CREATE INDEX c_acceptances_work_date_idx
     ON c_acceptances (work_id, acceptance_date DESC, id DESC);
@@ -250,27 +250,26 @@ $$;
 CREATE PROCEDURE register_acceptance(
     p_work_id bigint,
     p_expert_id bigint,
-    p_result text,
+    p_result s466402.c_acceptance_result,
     p_remarks text DEFAULT NULL,
     p_correction_deadline date DEFAULT NULL
 )
 LANGUAGE plpgsql
 AS $$
 BEGIN
-    IF p_result IS NULL OR p_result NOT IN ('ACCEPTED', 'REWORK') THEN
-        RAISE EXCEPTION 'Результат приёмки должен быть ACCEPTED или REWORK';
+    IF p_result IS NULL THEN
+        RAISE EXCEPTION 'Укажите результат приёмки';
     END IF;
 
     IF p_result = 'REWORK' AND (
         NULLIF(btrim(p_remarks), '') IS NULL
         OR p_correction_deadline IS NULL
-        OR p_correction_deadline < CURRENT_DATE
     ) THEN
-        RAISE EXCEPTION 'Для доработки нужны замечания и срок не раньше даты приёмки';
+        RAISE EXCEPTION 'Для доработки нужны замечания и срок исправления';
     END IF;
 
     UPDATE s466402.c_repair_works
-    SET status = p_result::s466402.c_repair_work_status
+    SET status = p_result::text::s466402.c_repair_work_status
     WHERE id = p_work_id AND status = 'ON_ACCEPTANCE';
 
     IF NOT FOUND THEN
@@ -278,7 +277,7 @@ BEGIN
     END IF;
 
     INSERT INTO s466402.c_acceptances (work_id, expert_id, acceptance_date, result, remarks, correction_deadline)
-    VALUES (p_work_id, p_expert_id, CURRENT_DATE, p_result::s466402.c_acceptance_result, p_remarks, p_correction_deadline);
+    VALUES (p_work_id, p_expert_id, CURRENT_DATE, p_result, p_remarks, p_correction_deadline);
 END;
 $$;
 
@@ -301,7 +300,7 @@ BEGIN
     FROM s466402.c_bids AS bid
     JOIN s466402.c_contractors AS contractor ON contractor.id = bid.contractor_id
     WHERE bid.tender_id = p_tender_id
-    ORDER BY bid.price, bid.id;
+    ORDER BY bid.price;
 END;
 $$;
 

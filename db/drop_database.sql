@@ -4,7 +4,9 @@ BEGIN;
 
 DROP FUNCTION IF EXISTS s466402.ready_repair_works(bigint, bigint);
 DROP FUNCTION IF EXISTS s466402.tender_bids(bigint);
-DROP PROCEDURE IF EXISTS s466402.register_acceptance(bigint, bigint, text, text, date);
+DROP PROCEDURE IF EXISTS
+    s466402.register_acceptance(bigint, bigint, s466402.c_acceptance_result, text, date),
+    s466402.register_acceptance(bigint, bigint, text, text, date);
 
 DROP TABLE IF EXISTS
     s466402.c_acceptances,

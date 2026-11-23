@@ -54,7 +54,7 @@
 \section{ER-модель}
 
 \begin{center}
-    \includegraphics[width=\linewidth,height=.83\textheight,keepaspectratio]{er-diagram.pdf}
+    \includegraphics[width=\linewidth,height=.83\textheight,keepaspectratio]{../er/remkomstroy.drawio.png}
     \captionof{figure}{ER-диаграмма системы «РемКомСтрой»}
 \end{center}
 \clearpage
@@ -62,7 +62,7 @@
 \section{Даталогическая модель}
 
 \begin{center}
-    \includegraphics[width=\linewidth,height=.83\textheight,keepaspectratio]{../er/remkomstroy_logical.png}
+    \includegraphics[width=\linewidth,height=.83\textheight,keepaspectratio]{../er/remkomstroy_logical.drawio.png}
     \captionof{figure}{Даталогическая модель базы данных}
 \end{center}
 \end{landscape}
@@ -84,7 +84,7 @@
 
 \begin{description}
     \item[\code{ready_repair_works}] Возвращает работы указанного проекта, назначенные подрядчику и ещё не начатые (\code{ASSIGNED}). В список входят работы без предшественников и работы, у которых все предшественники приняты.
-    \item[\code{tender_bids}] Возвращает предложения по указанному тендеру. Для каждого предложения выводятся подрядчик, цена, срок, дата начала и гарантия. Предложения отсортированы по цене, а при равной цене — по идентификатору.
+    \item[\code{tender_bids}] Возвращает предложения по указанному тендеру. Для каждого предложения выводятся подрядчик, цена, срок, дата начала и гарантия. Предложения отсортированы по возрастанию цены.
     \item[\code{register_acceptance}] Сохраняет результат приёмки и переводит работу из \code{ON_ACCEPTANCE} в \code{ACCEPTED} или \code{REWORK}. При возврате на доработку указываются замечания и срок исправления. Каждая проверка сохраняется отдельной записью.
 \end{description}
 
@@ -93,7 +93,7 @@
 
 \begin{description}
     \item[\code{c_repair_works_ready_idx}] Частичный индекс по подрядчику и проекту. В него входят только работы со статусом \code{ASSIGNED}. Индекс позволяет отобрать работы подрядчика перед проверкой их зависимостей.
-    \item[\code{c_bids_tender_price_idx}] Индекс по тендеру, цене и идентификатору предложения. Позволяет выбрать предложения одного тендера в порядке цены, а при равной цене — в порядке идентификатора.
+    \item[\code{c_bids_tender_price_idx}] Индекс по тендеру и цене. Позволяет выбрать предложения одного тендера в порядке возрастания цены.
     \item[\code{c_acceptances_work_date_idx}] Индекс по работе, дате приёмки и идентификатору записи. Дата и идентификатор указаны в порядке убывания. Индекс подходит для просмотра истории приёмок и поиска последней проверки.
 \end{description}
 
